@@ -14,7 +14,7 @@ class Predictor:
 
     def predict(self, file):
         self.features = pd.read_csv(file)
-        self.features_proc = self.__proc(pd.read_csv(file))
+        self.features_proc = self.__proc(self.features)
         self.predictions = pd.DataFrame({'prediction': self.model.predict(self.features_proc)}, index=self.features_proc.index)
 
     def __proc(self, df):
@@ -46,6 +46,11 @@ class Predictor:
         
         df['good_health'] = df['exercise_hours_per_week'] * df['physical_activity_days_per_week'] * df['sleep_hours_per_day']
 
+        df = self.__drop_columns(df)
+
+        return df
+    
+    def __drop_columns(self, df):
         #bad_health
         df.drop(columns=['triglycerides'], inplace=True)
         df.drop(columns=['alcohol_consumption'], inplace=True)

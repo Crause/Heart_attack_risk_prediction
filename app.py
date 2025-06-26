@@ -25,7 +25,7 @@ def main(request: Request):
 @app.post("/input-example")
 def load_template():
     filename = 'input_example.csv'
-    return FileResponse(f'templates\{filename}', media_type='text/csv', filename=filename)
+    return FileResponse(f'templates/{filename}', media_type='text/csv', filename=filename)
 
 @app.post("/predict")
 async def predict(upload_file: UploadFile = File(...)):
@@ -36,7 +36,7 @@ async def predict(upload_file: UploadFile = File(...)):
         stream = io.StringIO()
         predictor.predictions.to_csv(stream)
         stream.seek(0)
-        predictor.__fill_missing
+        
         return StreamingResponse(
             stream,
             media_type="text/csv",
