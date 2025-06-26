@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Предсказание рисков сердечного приступа</title>
+</head>
+<body>
+<h1 style="background-color:yellow;">Загрузка csv-файла</h1>
+            <p>
+            <form action="/predict" enctype="multipart/form-data" method="post">
+            <input name="upload_file" type="file">
+            <input type="submit" value="Предсказать">
+            </form>
+<h1 style="background-color:yellow;">Пример csv-файла для загрузки</h1>
+            <p>
+            <form action="/input-example" enctype="multipart/form-data" method="post">
+            <input type="submit" value="Получить">
+            </form>
+</body>
+</html>
+
+
