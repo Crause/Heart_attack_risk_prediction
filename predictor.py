@@ -1,21 +1,27 @@
-from joblib import load
+import re
 import pandas as pd
 import numpy as np
-import re
+from joblib import load
 
 class Predictor:
 
-    features = pd.DataFrame()
-    features_proc = pd.DataFrame()
-    predictions = pd.DataFrame()
-
     def __init__(self):
         self.model = load('models/dtc_0521.joblib')
+        self.features = pd.DataFrame()
+        self.features_proc = pd.DataFrame()
+        self.predictions = pd.DataFrame()
 
     def predict(self, file):
         self.features = pd.read_csv(file)
         self.features_proc = self.__proc(self.features)
         self.predictions = pd.DataFrame({'prediction': self.model.predict(self.features_proc)}, index=self.features_proc.index)
+        return self.predictions
+
+    def get_feature_names_in(self):
+        return self.features.columns
+    
+    def get_feature_names_out(self):
+        return self.features_proc.columns
 
     def __proc(self, df):
         df = df.drop(columns=['Unnamed: 0'])

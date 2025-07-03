@@ -31,10 +31,10 @@ def load_template():
 async def predict(upload_file: UploadFile = File(...)):
     try:
         predictor = Predictor()
-        predictor.predict(upload_file.file)
+        predictions = predictor.predict(upload_file.file)
         
         stream = io.StringIO()
-        predictor.predictions.to_csv(stream)
+        predictions.to_csv(stream)
         stream.seek(0)
         
         return StreamingResponse(
